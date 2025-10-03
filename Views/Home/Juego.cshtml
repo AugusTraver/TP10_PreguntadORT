@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Juego";
+}
+<div>
+<p> Nombre de usuario: @ViewBag.username</p>
+<p> Puntaje actual: @ViewBag.PuntajeActual</p>
+<br>
+<p> Numero de pregunta: @ViewBag.PreguntaActual.id</p>
+<p> Consigna: @ViewBag.PreguntaActual.Enunciado</p>
+<img src = "@ViewBag.PreguntaActual.Foto" alt ="fotoPregunta">  
+
+<form method="post" action ="@Url.action("VerificarRespuesta", "home ")">
+@foreach(string respuesta in ListaRespuesta)
+{
+    <button type ="submit" name ="idRespuesta" value = "@Respuestas.Id"> </button> // queda lo de la img 
+}
+
+<button type ="submit"> enviar Respuesta </button>
+
+
+<div>

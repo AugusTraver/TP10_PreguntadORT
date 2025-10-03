@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "ConfiguracionJuego";
+}
+<form method = "get" action = "@Url.action("Comenzar""home")"> 
+
+  <p>Elegí la categoría:</p>
+
+    <input type="radio" id="todas" name="categoria" value="-1" checked>
+    <label for="todas">Todas las categorías</label><br>
+
+    <input type="radio" id="ciencia" name="categoria" value="1">
+    <label for="ciencia">Ciencia</label><br>
+
+    <input type="radio" id="historia" name="categoria" value="2">
+    <label for="historia">Historia</label><br>
+
+    <input type="radio" id="deportes" name="categoria" value="3">
+    <label for="deportes">Deportes</label><br>
+
+    <input type="radio" id="arte" name="categoria" value="4">
+    <label for="arte">Arte</label><br>
+
+  <input type="radio" id="Geografia" name="categoria" value="4">
+    <label for="arte">Geografia</label><br>
+
+     <input type ="text" id ="user" name ="usu" value ="Nombre">
+     <label for ="user">Nombre </label><br>
+
+    <input type="submit">Comenzar juego<input>
+    <input type="rest">reset<input>
+
+
+</form>
