@@ -19,22 +19,30 @@ public class BD
 
     public static List<Preguntas> ObtenerPreguntas(int categoriaa)
     {
+
         List<Preguntas> ListaPreguntas = new List<Preguntas>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM Preguntas WHERE IdCategorias = @Categoria ";
+            if (categoria = -1)
+            {
+                string query = "SELECT * FROM Preguntas";
+            }
+            else
+            {
+                string query = "SELECT * FROM Preguntas WHERE IdCategorias = @Categoria ";
+            }
             ListaPreguntas = connection.Query<Preguntas>(query, new { Categoria = categoriaa }).ToList();
         }
         return ListaPreguntas;
     }
-    public static Respuestas ObtenerRespuestas(int idPregunta)
+    public static List<Respuestas> ObtenerRespuestas(int idPregunta)
     {
-        Respuestas respuesta;
+        List<Respuestas> respuestas;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM Respuestas WHERE Id = @idP ";
+            string query = "SELECT * FROM Respuestas WHERE IdPregunta = @idP ";
             respuesta = connection.QueryFirstOrDefault<Respuestas>(query, new { idP = idPregunta });
         }
         return respuesta;
-    }   
+    }
 }

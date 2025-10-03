@@ -4,13 +4,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NombreProyecto</title>
+    <title>@ViewData["Title"] - La banda del morgan </title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
 <body>
     <header>
-        NombreProyecto
+       <h1> El ahorcado de Morgan</h1>
+         <a href="@Url.Action("index", "home" >
+         <button>Jugar </button>
+         </a>
     </header>
 
     <main role="main">
@@ -18,7 +21,7 @@
     </main>
 
     <footer>
-        &copy; @DateTime.Now.Year - NombreProyecto
+        &copy; @DateTime.Now.Year - La Banda del morgan 
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
