@@ -1,21 +1,25 @@
 @{
     ViewData["Title"] = "Juego";
 }
-<div>
-<p> Nombre de usuario: @ViewBag.username</p>
-<p> Puntaje actual: @ViewBag.PuntajeActual</p>
-<br>
-<p> Numero de pregunta: @ViewBag.PreguntaActual.id</p>
-<p> Consigna: @ViewBag.PreguntaActual.Enunciado</p>
-<img src = "@ViewBag.PreguntaActual.Foto" alt ="fotoPregunta">  
 
-<form method="post" action ="@Url.action("VerificarRespuesta", "home ")">
-@foreach(string respuesta in ListaRespuesta)
-{
-    <button type ="submit" name ="idRespuesta" value = "@Respuestas.Id"> </button> // queda lo de la img 
-}
+<div id="juego">
+    <p>Nombre de usuario: @ViewBag.Username</p>
+    <p>Puntaje actual: @ViewBag.PuntajeActual</p>
+    <br />
+    <img src="@ViewBag.Foto" alt="Foto de la pregunta" />
+    <br />
+    <p>Número de pregunta: @ViewBag.PreguntaActual.Id</p>
+    <p>@ViewBag.PreguntaActual.Enunciado</p>
 
-<button type ="submit"> enviar Respuesta </button>
+    <form method="post" action="@Url.Action("VerificarRespuesta", "Home")">
+        @foreach (var respuesta in ViewBag.ListaRespuesta)
+        {
+            <button type="submit" name="idRespuesta" value="@respuesta.Id">
+                @respuesta.Contenido
+            </button>
+        }
 
-
-<div>
+        <button type="submit" class="enviar"> Enviar Respuesta </button>
+    </form>
+    
+</div>

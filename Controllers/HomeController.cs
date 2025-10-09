@@ -39,27 +39,28 @@ public class HomeController : Controller
     {
 
         Juego Juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("Jueg"));
-        
-        ViewBag.consigna = Juego.PreguntaActual.Enunciado;
-        ViewBag.Foto = Juego.PreguntaActual.Foto;
+
+        ViewBag.PreguntaActual = Juego.PreguntaActual;
         if (Juego.ListaPreguntas.Count == 0)
         {
-           HttpContext.Session.SetString("juego", Juego);
+            HttpContext.Session.SetString("juego", Juego);
             return View("Fin");
         }
         else
         {
             ViewBag.ListaRespuestas = Juego.ObtenerProximasRespuestas(ListaPreguntas[Juego.ObtenerIdPreguntaMasChico()].Id);
-           HttpContext.Session.SetString("juego", Juego);
+            HttpContext.Session.SetString("juego", Juego);
 
             return View("Juego");
         }
     }
     [HttpPost]
     public IActionResult VerificarRespuesta(int idRespuesta)
-    {   
+    {
         Juego Juego = Objeto.StringToObject<Juego>(HttpContext.Session.GetString("Jueg"));
-        bool Correcta = Juego.VerificarRespuesta(idRespuesta);
+        ViewBag.Correcta = Juego.VerificarRespuesta(idRespuesta);
+        ViewBag.PreguntaActual = Juego.PreguntaActual;
+        ViewBag.ListaRespuestas = Juego.ObtenerProximasRespuestas(ListaPreguntas[Juego.ObtenerIdPreguntaMasChico()].Id);
         return View("Juego");
-    } 
+    }
 }

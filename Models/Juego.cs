@@ -9,7 +9,7 @@ public class Juego
     public Preguntas PreguntaActual { get; private set; }
     public List<Preguntas> ListaPreguntas { get; private set; }
     public List<Respuestas> ListaRespuestas { get; private set; }
-
+    public List<Respuestas> RespuestasActual { get; private set; }
 
     private void InicializarJuego()
     {
@@ -43,17 +43,19 @@ public class Juego
     }
     private List<Respuestas> ObtenerProximasRespuestas(int idPregunta)
     {
-        return BD.ObtenerRespuestas(idPregunta);
+        
+        RespuestasActual = BD.ObtenerRespuestas(idPregunta);
+        return RespuestasActual;
     }
     private bool VerificarRespuesta(int idRespuesta)
     {
         bool correctaa = false;
-        List<Respuestas> Respuestas = BD.ObtenerRespuestas(ObtenerIdPreguntaMasChico());
+        RespuestasActual = BD.ObtenerRespuestas(ObtenerIdPreguntaMasChico());
         Respuestas respuestaCorrecta = null;
         ListaRespuestas.Remove(ObtenerIdPreguntaMasChico());
-        for (int i = 0; i < Respuestas.Count; i++)
+        for (int i = 0; i < RespuestasActual.Count; i++)
         {
-            if (Respuestas[i].Correcta)
+            if (RespuestasActual[i].Correcta)
             {
                 respuestaCorrecta = listaRespuestas[i];
                 break;
@@ -64,10 +66,10 @@ public class Juego
             correctaa = true;
             CantidadPreguntasCorrectas += 1;
             PuntajeActual += 10;
-          
+
         }
-        PreguntaActual = ListaPreguntas[ContadorNroPreguntaActual];
         ContadorNroPreguntaActual += 1;
+        PreguntaActual = ListaPreguntas[ContadorNroPreguntaActual];
         return correctaa;
     }
     public int ObtenerIdPreguntaMasChico()
