@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+namespace TP10_AhorcadORT.Models;
 
 public static class Objeto
 

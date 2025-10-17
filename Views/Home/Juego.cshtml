@@ -11,15 +11,18 @@
     <p>Número de pregunta: @ViewBag.PreguntaActual.Id</p>
     <p>@ViewBag.PreguntaActual.Enunciado</p>
 
-    <form method="post" action="@Url.Action("VerificarRespuesta", "Home")">
-        @foreach (var respuesta in ViewBag.ListaRespuesta)
+    <form id="formRespuestas" method="post" action="@Url.Action("VerificarRespuesta", "Home")">
+        @foreach (var respuesta in ViewBag.ListaRespuestas)
         {
-            <button type="submit" name="idRespuesta" value="@respuesta.Id">
-                @respuesta.Contenido
-            </button>
+            <div id="opcion_@respuesta.Id" data-correcta="@respuesta.Correcta.ToString().ToLower()">
+                <input type="radio" name="idRespuesta" value="@respuesta.Id" id="radio_@respuesta.Id" />
+                <label id="label_@respuesta.Id" for="radio_@respuesta.Id">@respuesta.Contenido</label>
+            </div>
         }
 
-        <button type="submit" class="enviar"> Enviar Respuesta </button>
+        <br />
+        <button type="button" id="btnEnviar" onclick="verificar()">Enviar respuesta</button>
+
+        <button type="submit" id="btnSiguiente" style="display:none;">Siguiente pregunta</button>
     </form>
-    
 </div>

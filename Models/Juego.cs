@@ -1,3 +1,4 @@
+namespace TP10_AhorcadORT.Models;
 
 public class Juego
 {
@@ -7,33 +8,37 @@ public class Juego
     public int CantidadPreguntasCorrectas { get; private set; }
     public int ContadorNroPreguntaActual { get; private set; }
     public Preguntas PreguntaActual { get; private set; }
-    public List<Preguntas> ListaPreguntas { get; private set; }
-    public List<Respuestas> ListaRespuestas { get; private set; }
+   public List<Preguntas> ListaPreguntas { get; set; } = new List<Preguntas>();
+public List<Respuestas> ListaRespuestas { get; set; } = new List<Respuestas>();
+
     public List<Respuestas> RespuestasActual { get; private set; }
 
-    private void InicializarJuego()
-    {
-        username = null;
-        PuntajeActual = 0;
-        CantidadPreguntasCorrectas = 0;
-        ContadorNroPreguntaActual = 0;
-        PreguntaActual = null;
-        ListaPreguntas = null;
-        ListaRespuestas = null;
-    }
+public void InicializarJuego()
+{
+    username = "";
+    PuntajeActual = 0;
+    CantidadPreguntasCorrectas = 0;
+    ContadorNroPreguntaActual = 0;
+    PreguntaActual = null;
+    ListaPreguntas = new List<Preguntas>();
+    ListaRespuestas = new List<Respuestas>();
+}
 
-    private void CargarPartida(string Username, int categoria)
+
+    public void CargarPartida(string Username, int categoria)
     {
         InicializarJuego();
         username = Username;
+        
         ListaPreguntas = BD.ObtenerPreguntas(categoria);
-
+        
     }
-    private List<Categorias> ObtenerCategorias()
+    public List<Categorias> ObtenerCategorias()
     {
+        
         return BD.ObtenerCategorias();
     }
-    private string ObtenerProximaPregunta()
+    public Preguntas ObtenerProximaPregunta()
     {
 
         PreguntaActual = ListaPreguntas[ContadorNroPreguntaActual];
@@ -41,27 +46,28 @@ public class Juego
 
         return PreguntaActual;
     }
-    private List<Respuestas> ObtenerProximasRespuestas(int idPregunta)
+    public List<Respuestas> ObtenerProximasRespuestas(int idPregunta)
     {
-        
+
         RespuestasActual = BD.ObtenerRespuestas(idPregunta);
         return RespuestasActual;
     }
-    private bool VerificarRespuesta(int idRespuesta)
+    public bool VerificarRespuesta(int idRespuesta)
     {
         bool correctaa = false;
         RespuestasActual = BD.ObtenerRespuestas(ObtenerIdPreguntaMasChico());
         Respuestas respuestaCorrecta = null;
-        ListaRespuestas.Remove(ObtenerIdPreguntaMasChico());
+        int idchico = ObtenerIdPreguntaMasChico();
+        ListaRespuestas.RemoveAt(idchico);
         for (int i = 0; i < RespuestasActual.Count; i++)
         {
             if (RespuestasActual[i].Correcta)
             {
-                respuestaCorrecta = listaRespuestas[i];
+                respuestaCorrecta = RespuestasActual[i];
                 break;
             }
         }
-        if (idRespuesta = respuestaCorrecta.Id)
+        if (idRespuesta == respuestaCorrecta.Id)
         {
             correctaa = true;
             CantidadPreguntasCorrectas += 1;
