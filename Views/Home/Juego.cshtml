@@ -2,14 +2,21 @@
     ViewData["Title"] = "Juego";
 }
 
+<h2>Juego de Preguntas</h2>
+
 <div id="juego">
-    <p>Nombre de usuario: @ViewBag.Username</p>
-    <p>Puntaje actual: @ViewBag.PuntajeActual</p>
+    <p><strong>Nombre de usuario:</strong> @ViewBag.Username</p>
+    <p><strong>Puntaje actual:</strong> @ViewBag.PuntajeActual</p>
     <br />
-    <img src="@ViewBag.Foto" alt="Foto de la pregunta" />
-    <br />
-    <p>Número de pregunta: @ViewBag.PreguntaActual.Id</p>
-    <p>@ViewBag.PreguntaActual.Enunciado</p>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Foto))
+    {
+        <img src="@ViewBag.Foto" alt="Foto de la pregunta" />
+        <br />
+    }
+
+    <p><strong>Número de pregunta:</strong> @ViewBag.PreguntaActual?.Id</p>
+    <p><strong>Pregunta:</strong> @ViewBag.PreguntaActual?.Enunciado</p>
 
     <form id="formRespuestas" method="post" action="@Url.Action("VerificarRespuesta", "Home")">
         @foreach (var respuesta in ViewBag.ListaRespuestas)
@@ -22,7 +29,8 @@
 
         <br />
         <button type="button" id="btnEnviar" onclick="verificar()">Enviar respuesta</button>
-
         <button type="submit" id="btnSiguiente" style="display:none;">Siguiente pregunta</button>
     </form>
 </div>
+<script src="~/js/site.js"></script>
+

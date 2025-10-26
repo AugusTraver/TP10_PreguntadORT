@@ -1,95 +1,114 @@
-namespace TP10_AhorcadORT.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-public class Juego
+namespace TP10_AhorcadORT.Models
 {
-
-    public string username { get; private set; }
-    public int PuntajeActual { get; private set; }
-    public int CantidadPreguntasCorrectas { get; private set; }
-    public int ContadorNroPreguntaActual { get; private set; }
-    public Preguntas PreguntaActual { get; private set; }
-   public List<Preguntas> ListaPreguntas { get; set; } = new List<Preguntas>();
-public List<Respuestas> ListaRespuestas { get; set; } = new List<Respuestas>();
-
-    public List<Respuestas> RespuestasActual { get; private set; }
-
-public void InicializarJuego()
-{
-    username = "";
-    PuntajeActual = 0;
-    CantidadPreguntasCorrectas = 0;
-    ContadorNroPreguntaActual = 0;
-    PreguntaActual = null;
-    ListaPreguntas = new List<Preguntas>();
-    ListaRespuestas = new List<Respuestas>();
-}
-
-
-    public void CargarPartida(string Username, int categoria)
+    public class Juego
     {
-        InicializarJuego();
-        username = Username;
-        
-        ListaPreguntas = BD.ObtenerPreguntas(categoria);
-        
-    }
-    public List<Categorias> ObtenerCategorias()
-    {
-        
-        return BD.ObtenerCategorias();
-    }
-    public Preguntas ObtenerProximaPregunta()
-    {
+        public string Username { get; private set; }
+        public int PuntajeActual { get; private set; }
+        public int CantidadPreguntasCorrectas { get; private set; }
+        public int ContadorNroPreguntaActual { get; private set; }
 
-        PreguntaActual = ListaPreguntas[ContadorNroPreguntaActual];
-        ContadorNroPreguntaActual++;
+        public Preguntas PreguntaActual { get; private set; }
+        public List<Preguntas> ListaPreguntas { get; private set; } = new();
+        public List<Respuestas> RespuestasActual { get; private set; } = new();
 
-        return PreguntaActual;
-    }
-    public List<Respuestas> ObtenerProximasRespuestas(int idPregunta)
-    {
-
-        RespuestasActual = BD.ObtenerRespuestas(idPregunta);
-        return RespuestasActual;
-    }
-    public bool VerificarRespuesta(int idRespuesta)
-    {
-        bool correctaa = false;
-        RespuestasActual = BD.ObtenerRespuestas(ObtenerIdPreguntaMasChico());
-        Respuestas respuestaCorrecta = null;
-        int idchico = ObtenerIdPreguntaMasChico();
-        ListaRespuestas.RemoveAt(idchico);
-        for (int i = 0; i < RespuestasActual.Count; i++)
+        // -------------------------
+        // INICIALIZACIÓN DEL JUEGO
+        // -------------------------
+        public void InicializarJuego()
         {
-            if (RespuestasActual[i].Correcta)
-            {
-                respuestaCorrecta = RespuestasActual[i];
-                break;
-            }
+            Username = "";
+            PuntajeActual = 0;
+            CantidadPreguntasCorrectas = 0;
+            ContadorNroPreguntaActual = 0;
+            PreguntaActual = null;
+            ListaPreguntas = new List<Preguntas>();
+            RespuestasActual = new List<Respuestas>();
         }
-        if (idRespuesta == respuestaCorrecta.Id)
-        {
-            correctaa = true;
-            CantidadPreguntasCorrectas += 1;
-            PuntajeActual += 10;
 
-        }
-        ContadorNroPreguntaActual += 1;
-        PreguntaActual = ListaPreguntas[ContadorNroPreguntaActual];
-        return correctaa;
-    }
-    public int ObtenerIdPreguntaMasChico()
-    {
-        int idMinimo = ListaPreguntas[0].Id;
-
-        for (int i = 1; i < ListaPreguntas.Count; i++)
+        // -------------------------
+        // CARGA DE PARTIDA
+        // -------------------------
+        public void CargarPartida(string username, int categoria)
         {
-            if (ListaPreguntas[i].Id < idMinimo)
+            InicializarJuego();
+            Username = username;
+
+            ListaPreguntas = BD.ObtenerPreguntas(categoria);
+            Console.WriteLine($"Preguntas cargadas: {ListaPreguntas.Count}");
+
+            if (ListaPreguntas.Count > 0)
             {
-                idMinimo = ListaPreguntas[i].Id;
+                ObtenerProximaPregunta();
             }
         }
 
-        return idMinimo;
+        // -------------------------
+        // PREGUNTAS Y RESPUESTAS
+        // -------------------------
+        public Preguntas ObtenerProximaPregunta()
+        {
+            if (ContadorNroPreguntaActual >= ListaPreguntas.Count)
+            {
+                PreguntaActual = null;
+                return null;
+            }
+
+            PreguntaActual = ListaPreguntas[ContadorNroPreguntaActual];
+            ContadorNroPreguntaActual++;
+
+            RespuestasActual = BD.ObtenerRespuestas(PreguntaActual.Id);
+            Console.WriteLine($"Pregunta actual: {PreguntaActual.Enunciado} (ID: {PreguntaActual.Id})");
+
+            return PreguntaActual;
+        }
+
+        public List<Respuestas> ObtenerProximasRespuestas()
+        {
+            if (PreguntaActual == null)
+                return new List<Respuestas>();
+
+            RespuestasActual = BD.ObtenerRespuestas(PreguntaActual.Id);
+            return RespuestasActual;
+        }
+
+        // -------------------------
+        // VERIFICACIÓN DE RESPUESTA
+        // -------------------------
+        public bool VerificarRespuesta(int idRespuesta)
+        {
+            if (PreguntaActual == null)
+                return false;
+
+            // Obtener respuestas de la pregunta actual
+            RespuestasActual = BD.ObtenerRespuestas(PreguntaActual.Id);
+
+            var respuestaSeleccionada = RespuestasActual.FirstOrDefault(r => r.Id == idRespuesta);
+            var respuestaCorrecta = RespuestasActual.FirstOrDefault(r => r.Correcta);
+
+            bool esCorrecta = (respuestaSeleccionada != null && respuestaSeleccionada.Correcta);
+
+            if (esCorrecta)
+            {
+                CantidadPreguntasCorrectas++;
+                PuntajeActual += 10;
+            }
+
+            // Pasar a la siguiente pregunta
+            ObtenerProximaPregunta();
+
+            return esCorrecta;
+        }
+
+        // -------------------------
+        // FIN DE JUEGO
+        // -------------------------
+        public bool JuegoTerminado()
+        {
+            return ContadorNroPreguntaActual >= ListaPreguntas.Count || PreguntaActual == null;
+        }
     }
 }

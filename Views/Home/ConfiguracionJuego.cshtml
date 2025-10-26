@@ -1,35 +1,27 @@
 @{
-    ViewData["Title"] = "ConfiguracionJuego";
+    ViewData["Title"] = "Configuración del Juego";
 }
 
+<h2>Configuración del Juego</h2>
+
 <form method="get" action='@Url.Action("Comenzar", "Home")'>
-  <fieldset>
-    <legend>Elegí la categoría:</legend>
+    <fieldset>
+        <legend>Elegí la categoría:</legend>
+        <input type="radio" id="todas" name="categoria" value="-1" checked>
+        <label for="todas">Todas las categorías</label><br />
 
-    <input type="radio" id="todas" name="categoria" value="-1" checked>
-    <label for="todas">Todas las categorías</label><br>
+        @foreach (var cat in ViewBag.categoria)
+        {
+            <input type="radio" id="cat_@cat.Id" name="categoria" value="@cat.Id" />
+            <label for="cat_@cat.Id">@cat.Nombre</label><br />
+        }
+    </fieldset>
 
-    <input type="radio" id="ciencia" name="categoria" value="1">
-    <label for="ciencia">Ciencia</label><br>
+    <p>
+        <label for="user">Nombre</label><br />
+        <input type="text" id="user" name="username" placeholder="Nombre" required />
+    </p>
 
-    <input type="radio" id="historia" name="categoria" value="2">
-    <label for="historia">Historia</label><br>
-
-    <input type="radio" id="deportes" name="categoria" value="3">
-    <label for="deportes">Deportes</label><br>
-
-    <input type="radio" id="arte" name="categoria" value="4">
-    <label for="arte">Arte</label><br>
-
-    <input type="radio" id="geografia" name="categoria" value="5">
-    <label for="geografia">Geografía</label><br>
-  </fieldset>
-
-  <p>
-    <label for="user">Nombre</label><br>
-    <input type="text" id="user" name="usu" placeholder="Nombre" />
-  </p>
-
-  <input type="submit" value="Comenzar juego" />
-  <input type="reset" value="Reiniciar" />
+    <input type="submit" value="Comenzar juego" />
+    <input type="reset" value="Reiniciar" />
 </form>

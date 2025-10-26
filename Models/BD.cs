@@ -4,7 +4,8 @@ using Dapper;
 namespace TP10_AhorcadORT.Models;
 public static class BD
 {
-    private static string _connectionString = @"Server = localHost; DataBase = PreguntadOrt; Integrated Security = True;TrustServerCertificate=True;";
+private static string _connectionString = 
+    @"Server=PC-AUGUSTO\SQLEXPRESS01;Database=PreguntadOrt;Integrated Security=True;TrustServerCertificate=True;";
 
     public static List<Categorias> ObtenerCategorias()
     {
