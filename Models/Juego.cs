@@ -1,17 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace TP10_AhorcadORT.Models
 {
     public class Juego
     {
+        [JsonProperty]
         public string Username { get; private set; }
+        [JsonProperty]
         public int PuntajeActual { get; private set; }
+        [JsonProperty]
         public int CantidadPreguntasCorrectas { get; private set; }
+        [JsonProperty]
         public int ContadorNroPreguntaActual { get; private set; }
+        [JsonProperty]
         public Preguntas PreguntaActual { get; private set; }
+        [JsonProperty]
         public List<Preguntas> ListaPreguntas { get; private set; } = new();
+        [JsonProperty]
         public List<Respuestas> RespuestasActual { get; private set; } = new();
 
         // -------------------------
@@ -115,7 +123,7 @@ namespace TP10_AhorcadORT.Models
 
         public bool JuegoTerminado()
         {
-                            Console.WriteLine("PRegunta acutal?" + PreguntaActual);
+            Console.WriteLine("PRegunta acutal?" + PreguntaActual);
 
             return PreguntaActual == null || ContadorNroPreguntaActual >= ListaPreguntas.Count;
         }

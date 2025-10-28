@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RJMOlHsUYqDJ6/CfiHuaMFA8NGm/YLRPudVq7ig+MhKXz+GR+c7t6a/ndNscma6fQ/wo8H9QN0EW13wqFacUUQ==",
+  "dgSpecHash": "yuEc0/EiT195F8OuLE9ehlz9A5/ZFROL6Aut51q3qL7t0G46LlAyNp9mAXve/UO7StE6QYH2uPygkIB7u4VWgQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\49315675\\Documents\\TP10_PreguntadORT\\TP10_AhorcadORT.csproj",
+  "projectFilePath": "C:\\Users\\49315675\\Downloads\\TP10_PreguntadORT\\TP10_AhorcadORT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\49315675\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\49315675\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

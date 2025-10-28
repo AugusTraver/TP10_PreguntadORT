@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TP10_AhorcadORT")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7706ae353778ae05f34c4cf404c22fce71878c7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5035bef65d76fe4d62b2c1d1b6d57dbcf44e6375")]
 [assembly: System.Reflection.AssemblyProductAttribute("TP10_AhorcadORT")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TP10_AhorcadORT")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
