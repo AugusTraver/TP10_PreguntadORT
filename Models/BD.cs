@@ -5,7 +5,7 @@ namespace TP10_AhorcadORT.Models;
 public static class BD
 {
 private static string _connectionString = 
-    @"Server=PC-AUGUSTO\SQLEXPRESS01;Database=PreguntadOrt;Integrated Security=True;TrustServerCertificate=True;";
+    @"Server=localhost;Database=PreguntadOrt;Integrated Security=True;TrustServerCertificate=True;";
 
     public static List<Categorias> ObtenerCategorias()
     {
@@ -33,7 +33,6 @@ private static string _connectionString =
             {
                 query = "SELECT * FROM Preguntas WHERE IdCategoria = @Categoria ";
             }
-            Console.WriteLine("QUERY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + query);
             ListaPreguntas = connection.Query<Preguntas>(query, new { Categoria = categoriaa }).ToList();
         }
         Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!" + ListaPreguntas[1]);

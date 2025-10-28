@@ -50,7 +50,7 @@ namespace TP10_AhorcadORT.Controllers
 
             Juego juego = Objeto.StringToObject<Juego>(juegoStr);
 
-            // Si ya terminó el juego
+                Console.WriteLine("JuegoTerminado" + juego.JuegoTerminado());
             if (juego.JuegoTerminado())
                 return View("Fin");
 
