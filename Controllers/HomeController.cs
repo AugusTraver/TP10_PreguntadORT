@@ -50,15 +50,13 @@ namespace TP10_AhorcadORT.Controllers
 
             Juego juego = Objeto.StringToObject<Juego>(juegoStr);
 
-                Console.WriteLine("JuegoTerminado" + juego.JuegoTerminado());
-            if (juego.JuegoTerminado())
-                return View("Fin");
 
-            // Actualizar ViewBags
             ViewBag.PreguntaActual = juego.PreguntaActual;
             ViewBag.ListaRespuestas = juego.ObtenerProximasRespuestas();
             ViewBag.Username = juego.Username;
             ViewBag.PuntajeActual = juego.PuntajeActual;
+            if (juego.JuegoTerminado())
+                return View("Fin");
 
             // Guardar sesión actualizada
             HttpContext.Session.SetString("juego", Objeto.ObjectToString(juego));
@@ -77,19 +75,18 @@ namespace TP10_AhorcadORT.Controllers
 
             bool esCorrecta = juego.VerificarRespuesta(idRespuesta);
 
-            // Si ya terminó el juego después de responder
-            if (juego.JuegoTerminado())
-            {
-                HttpContext.Session.SetString("juego", Objeto.ObjectToString(juego));
-                return View("Fin");
-            }
-
-            // Actualizar ViewBags con nueva pregunta
             ViewBag.Correcta = esCorrecta;
             ViewBag.PreguntaActual = juego.PreguntaActual;
             ViewBag.ListaRespuestas = juego.ObtenerProximasRespuestas();
             ViewBag.Username = juego.Username;
             ViewBag.PuntajeActual = juego.PuntajeActual;
+             if (juego.JuegoTerminado())
+            {
+                HttpContext.Session.SetString("juego", Objeto.ObjectToString(juego));
+                return View("Fin");
+            }
+
+
 
             // Actualizamos la sesión
             HttpContext.Session.SetString("juego", Objeto.ObjectToString(juego));

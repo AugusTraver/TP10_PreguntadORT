@@ -5,7 +5,7 @@ namespace TP10_AhorcadORT.Models;
 public static class BD
 {
 private static string _connectionString = 
-    @"Server=localhost;Database=PreguntadOrt;Integrated Security=True;TrustServerCertificate=True;";
+    @"Server=PC-locaclhostDatabase=PreguntadOrt;Integrated Security=True;TrustServerCertificate=True;";
 
     public static List<Categorias> ObtenerCategorias()
     {
@@ -47,5 +47,15 @@ private static string _connectionString =
             respuestas = connection.Query<Respuestas>(query, new { idP = idPregunta }).ToList();
         }
         return respuestas;
+    }
+     public static Respuestas ObtenerRespuestaInd(int idRespuesta)
+    {
+        Respuestas respuesta = null;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT * FROM Respuestas WHERE Id = @idP ";
+            respuesta = connection.QuerySingleOrDefault<Respuestas>(query, new { idP = idRespuesta });
+        }
+        return respuesta;
     }
 }

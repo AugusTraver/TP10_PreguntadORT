@@ -10,10 +10,14 @@
         const label = document.getElementById("label_" + r.value);
         const correcta = document.getElementById("opcion_" + r.value).getAttribute("data-correcta") === "true";
 
-        if (r.checked) respuestaSeleccionada = true;
+        if (r.checked) {
+            respuestaSeleccionada = true;
+        } else {
+            // Solo deshabilitás los no seleccionados
+            r.disabled = true;
+        }
 
-        r.disabled = true;
-
+        // Colores de corrección
         if (correcta) {
             label.style.color = "green";
         } else {
@@ -22,7 +26,7 @@
     }
 
     if (!respuestaSeleccionada) {
-        alert("Por favor selecciona una respuesta antes de enviar.");
+        alert("Por favor seleccioná una respuesta antes de enviar.");
         return;
     }
 

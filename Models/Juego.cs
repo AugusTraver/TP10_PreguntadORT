@@ -93,9 +93,8 @@ namespace TP10_AhorcadORT.Models
                 return false;
 
             var respuestas = BD.ObtenerRespuestas(PreguntaActual.Id);
-            var respuestaSeleccionada = respuestas.FirstOrDefault(r => r.Id == idRespuesta);
-            var esCorrecta = respuestaSeleccionada != null && respuestaSeleccionada.Correcta;
-
+            var respuestaSeleccionada = BD.ObtenerRespuestaInd(idRespuesta);
+            bool esCorrecta = respuestaSeleccionada != null && respuestaSeleccionada.Correcta;
             if (esCorrecta)
             {
                 CantidadPreguntasCorrectas++;
