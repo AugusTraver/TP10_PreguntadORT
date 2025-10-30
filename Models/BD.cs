@@ -5,7 +5,7 @@ namespace TP10_AhorcadORT.Models;
 public static class BD
 {
 private static string _connectionString = 
-    @"Server=PC-locaclhostDatabase=PreguntadOrt;Integrated Security=True;TrustServerCertificate=True;";
+    @"Server=localhost; Database=PreguntadOrt;Integrated Security=True;TrustServerCertificate=True;";
 
     public static List<Categorias> ObtenerCategorias()
     {
